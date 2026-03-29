@@ -1,0 +1,132 @@
+[gd_scene load_steps=19 format=3 uid="uid://yi6d6dd8a3lo"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_25qs1"]
+[ext_resource type="Texture2D" uid="uid://cg43741dq1ivl" path="res://assets/pnpigs-death-posterized.png" id="2_uml2w"]
+[ext_resource type="Texture2D" uid="uid://bqekranwuo3uk" path="res://assets/pnpigs-posterized.png" id="3_winx1"]
+[ext_resource type="AudioStream" uid="uid://5fgaqveuq6xy" path="res://assets/pig_squeal.wav" id="4_q6em0"]
+[ext_resource type="AudioStream" uid="uid://b0co4j4npuppg" path="res://assets/FleshHitSound.wav" id="5_ugg2w"]
+[ext_resource type="AudioStream" uid="uid://bljtkkacm1q2l" path="res://assets/FleshExplosion.wav" id="6_ndber"]
+[ext_resource type="AudioStream" uid="uid://b5e3b8u6uu8pp" path="res://assets/pig_cop_sound.wav" id="7_asabm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m0sjn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lywk"]
+atlas = ExtResource("2_uml2w")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xcm3"]
+atlas = ExtResource("2_uml2w")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d84no"]
+atlas = ExtResource("2_uml2w")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucr2l"]
+atlas = ExtResource("2_uml2w")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_silfu"]
+atlas = ExtResource("2_uml2w")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m16e"]
+atlas = ExtResource("3_winx1")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxjt0"]
+atlas = ExtResource("3_winx1")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hscx3"]
+atlas = ExtResource("3_winx1")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nqsp"]
+atlas = ExtResource("3_winx1")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_curbq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lywk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xcm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d84no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucr2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_silfu")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7m16e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxjt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hscx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nqsp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_25qs1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_m0sjn")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16086, 0)
+layers = 2
+pixel_size = 0.009
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_curbq")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.998477, 0, 0, 0, 0.998477, 0, 0, 0, 0.998477, 0, 0, 0)
+stream = ExtResource("4_q6em0")
+unit_size = 4.0
+bus = &"SFX"
+
+[node name="FleshHitSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.998477, 0, 0, 0, 0.998477, 0, 0, 0, 0.998477, 0, 0, 0)
+stream = ExtResource("5_ugg2w")
+unit_size = 4.0
+bus = &"SFX"
+
+[node name="FleshExplosionSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.998477, 0, 0, 0, 0.998477, 0, 0, 0, 0.998477, 0, 0, 0)
+stream = ExtResource("6_ndber")
+unit_size = 4.0
+bus = &"SFX"
+
+[node name="PigCopAmbientSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.998477, 0, 0, 0, 0.998477, 0, 0, 0, 0.998477, 0, 0, 0)
+stream = ExtResource("7_asabm")
+volume_db = -15.0
+unit_size = 4.0
+bus = &"SFX"
+
+[node name="BloodSpawn" type="Node3D" parent="."]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy7abk1yyb3cp"]
+
+[ext_resource type="Texture2D" uid="uid://cqu1oii5rhpk5" path="res://assets/blood_splat_texture_green.png" id="1_ynojb"]
+
+[node name="BloodDecal" type="Decal"]
+texture_albedo = ExtResource("1_ynojb")
+cull_mask = 1

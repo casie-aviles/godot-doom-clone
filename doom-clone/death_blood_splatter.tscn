@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://bf5cmecv3wmg6"]
+
+[ext_resource type="Texture2D" uid="uid://cy40dcukiidjc" path="res://assets/blood_texture.png" id="1_pvgvn"]
+
+[sub_resource type="Curve" id="Curve_2yf2h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bbk08"]
+curve = SubResource("Curve_2yf2h")
+
+[sub_resource type="Curve" id="Curve_cwu1w"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fufge"]
+curve = SubResource("Curve_cwu1w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v0n8l"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+scale_min = 0.01
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_bbk08")
+scale_over_velocity_curve = SubResource("CurveTexture_fufge")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14fx1"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_pvgvn")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_agfd1"]
+material = SubResource("StandardMaterial3D_14fx1")
+size = Vector2(0.08, 0.08)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+emitting = false
+amount = 500
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_v0n8l")
+draw_pass_1 = SubResource("QuadMesh_agfd1")

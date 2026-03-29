@@ -1,0 +1,188 @@
+[gd_scene load_steps=16 format=3 uid="uid://cockh28blgnjd"]
+
+[ext_resource type="Texture2D" uid="uid://cohb3omfpwnkl" path="res://assets/doom-sky-edited.png" id="1_vknd2"]
+[ext_resource type="PackedScene" uid="uid://l6og3p7x78mo" path="res://player.tscn" id="1_w2nee"]
+[ext_resource type="PackedScene" uid="uid://yi6d6dd8a3lo" path="res://enemy.tscn" id="2_yjqlb"]
+[ext_resource type="Texture2D" uid="uid://blaw5xl0lcify" path="res://assets/mc-portrait/mc-portrait-idle-1.png" id="3_1m1la"]
+[ext_resource type="Texture2D" uid="uid://v128huf56yon" path="res://assets/mc-portrait/mc-portrait-idle-2-pxl.png" id="4_lpdml"]
+[ext_resource type="FontFile" uid="uid://dpubpao5q1hn6" path="res://assets/VCR_OSD_MONO_1.001.ttf" id="5_3a3f0"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_af8q2"]
+panorama = ExtResource("1_vknd2")
+
+[sub_resource type="Sky" id="Sky_17kdw"]
+sky_material = SubResource("PanoramaSkyMaterial_af8q2")
+
+[sub_resource type="Environment" id="Environment_hg3t1"]
+background_mode = 2
+background_color = Color(0.515912, 0.589092, 0.648589, 1)
+sky = SubResource("Sky_17kdw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yq6wk"]
+size = Vector3(28, 1, 26)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mx8aj"]
+size = Vector3(28, 1, 26)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m8ald"]
+albedo_color = Color(0.588235, 0.588235, 0.588235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nu2sf"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0h3ua"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0s8xg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lpdml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lpdml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lpdml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1m1la")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hg3t1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.718144, -0.625693, 0.304594, -0.398546, -0.0109885, 0.917083, -0.570465, -0.779992, -0.257259, 3.82339, 4.54092, -0.339915)
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13322, -0.0706749, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.480698, -2.5)
+shape = SubResource("BoxShape3D_yq6wk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.480698, -2.5)
+mesh = SubResource("BoxMesh_mx8aj")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Block4" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(2.221, 0, 0, 0, 1.15, 0, 0, 0, 14.218, -1.1599, 0.430184, -8.39023)
+material_override = SubResource("StandardMaterial3D_m8ald")
+mesh = SubResource("BoxMesh_nu2sf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Block4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Block4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_0h3ua")
+
+[node name="Block5" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(2.221, 0, 0, 0, 1.15, 0, 0, 0, 7.74, -1.1599, 0.430184, 6.49302)
+material_override = SubResource("StandardMaterial3D_m8ald")
+mesh = SubResource("BoxMesh_nu2sf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/Block5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Block5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_0h3ua")
+
+[node name="Player" parent="." instance=ExtResource("1_w2nee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.16953, 1, 5.76297)
+
+[node name="Enemy" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71677, 0.331439, -9.00156)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23118, 0.261216, -1.36738)
+
+[node name="Enemy4" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.06446, 0.450417, -2.74477)
+
+[node name="Enemy5" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.06446, -0.0330563, -9.14923)
+
+[node name="Enemy3" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23118, 0.261216, 5.00347)
+
+[node name="Enemy6" parent="." instance=ExtResource("2_yjqlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23118, 0.261216, -8.37381)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CharacterPortrait" type="AnimatedSprite2D" parent="UI"]
+position = Vector2(657, 847)
+scale = Vector2(0.191232, 0.191232)
+sprite_frames = SubResource("SpriteFrames_0s8xg")
+autoplay = "default"
+frame_progress = 0.204452
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+z_index = -1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -230.0
+offset_right = 640.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.260506, 0.260506, 0.260506, 1)
+
+[node name="HealthLabel" type="RichTextLabel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.304
+anchor_top = 0.891
+anchor_right = 0.304
+anchor_bottom = 0.894
+offset_left = -144.12
+offset_top = -52.36
+offset_right = 143.88
+offset_bottom = 55.7599
+theme_override_fonts/normal_font = ExtResource("5_3a3f0")
+theme_override_font_sizes/normal_font_size = 70
+text = "100/100"

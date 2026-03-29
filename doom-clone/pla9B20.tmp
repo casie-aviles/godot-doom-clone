@@ -1,0 +1,242 @@
+[gd_scene load_steps=21 format=3 uid="uid://l6og3p7x78mo"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_c5fm2"]
+[ext_resource type="Texture2D" uid="uid://cr7jdsr5jabr7" path="res://assets/gun_sprites_custom.png" id="2_1ds0j"]
+[ext_resource type="Script" path="res://player_movement.gd" id="3_7lkuk"]
+[ext_resource type="Texture2D" uid="uid://cld66el042fm7" path="res://assets/kick-anim-edited/1.png" id="3_7y4xe"]
+[ext_resource type="AudioStream" uid="uid://c8nvuneqy7724" path="res://assets/ShootSound.wav" id="3_vy78y"]
+[ext_resource type="AudioStream" uid="uid://bepc3snnil2hq" path="res://assets/SkidSound.wav" id="4_hjiym"]
+[ext_resource type="Texture2D" uid="uid://bngupi73xcth4" path="res://assets/kick-anim-edited/2.png" id="4_pylh1"]
+[ext_resource type="Texture2D" uid="uid://bjwbfca2kvg4n" path="res://assets/kick-anim-edited/3.png" id="5_ywnv1"]
+[ext_resource type="Texture2D" uid="uid://d0bjw3p74maal" path="res://assets/kick-anim-edited/4.png" id="6_578re"]
+[ext_resource type="Texture2D" uid="uid://ducg56avufmgn" path="res://assets/kick-anim-edited/5.png" id="7_kv0sc"]
+[ext_resource type="Texture2D" uid="uid://edahi674nxv1" path="res://assets/kick-anim-edited/6.png" id="8_h60w3"]
+[ext_resource type="Script" path="res://player_input.gd" id="11_46t74"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onkd2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8eap"]
+atlas = ExtResource("2_1ds0j")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjp17"]
+atlas = ExtResource("2_1ds0j")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjgg3"]
+atlas = ExtResource("2_1ds0j")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_samj1"]
+atlas = ExtResource("2_1ds0j")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_st83a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8eap")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjp17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjgg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_samj1")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nipa2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7y4xe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pylh1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ywnv1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_578re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_578re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_578re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kv0sc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_h60w3")
+}],
+"loop": false,
+"name": &"kick",
+"speed": 20.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lk5br"]
+size = Vector3(1, 1, 1.45758)
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_c5fm2")
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("11_46t74")
+
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("3_7lkuk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_onkd2")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1000)
+collision_mask = 3
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GunBase" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -200.0
+offset_right = 20.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GunAnimations" type="AnimatedSprite2D" parent="CanvasLayer/GunBase" groups=["Player"]]
+position = Vector2(269, -216.25)
+scale = Vector2(0.737305, 0.737305)
+sprite_frames = SubResource("SpriteFrames_st83a")
+animation = &"shoot"
+
+[node name="Crosshair" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.379
+anchor_right = 0.5
+anchor_bottom = 0.379
+offset_left = -4.0
+offset_top = -3.56
+offset_right = 4.0
+offset_bottom = 4.44
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.509804)
+
+[node name="DeathScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -36.0
+offset_right = 53.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -31.0
+offset_right = 38.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU DIED"
+
+[node name="Button" type="Button" parent="CanvasLayer/DeathScreen/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -3.0
+offset_right = 32.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[node name="KickBase" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -496.0
+offset_right = -536.0
+offset_bottom = -456.0
+
+[node name="KickAnimation" type="AnimatedSprite2D" parent="CanvasLayer/KickBase" groups=["Player"]]
+position = Vector2(534, 15)
+scale = Vector2(0.61342, 0.583045)
+sprite_frames = SubResource("SpriteFrames_nipa2")
+animation = &"kick"
+frame = 7
+frame_progress = 1.0
+
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_vy78y")
+bus = &"SFX"
+
+[node name="SkidSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_hjiym")
+bus = &"SFX"
+
+[node name="KickArea3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, -1.2398)
+collision_layer = 2
+collision_mask = 3
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KickArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.148124)
+shape = SubResource("BoxShape3D_lk5br")
+
+[connection signal="body_entered" from="KickArea3D" to="." method="_on_kick_area_3d_body_entered"]
