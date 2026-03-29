@@ -12,7 +12,7 @@ Open `doom-clone/project.godot` in Godot 4.x and run.
 - **Mouse** - Look
 - **Left Click** - Shoot
 - **Right Click** - Kick
-- **Shift** - Run
+- **WASD + Shift** - Slide
 
 ## Docs
 
