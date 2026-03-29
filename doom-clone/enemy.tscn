@@ -130,3 +130,10 @@ unit_size = 4.0
 bus = &"SFX"
 
 [node name="BloodSpawn" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 5.0
+neighbor_distance = 100.0

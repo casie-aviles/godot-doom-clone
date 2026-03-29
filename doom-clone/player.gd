@@ -19,6 +19,11 @@ var sway_time: float = 0.0
 @export var sway_speed: float = 15.0
 @export var sway_amount: float = 3.0
 
+# Screen shake
+var shake_duration: float = 0.0
+var shake_intensity: float = 0.0
+var shake_time: float = 0.0
+
 const MOUSE_SENSITIVITY = 0.3
 
 # Nodes
@@ -89,6 +94,18 @@ func _process(_delta: float) -> void:
 		sway_time = 0.0
 		$CanvasLayer/GunBase.position = gun_base_pos
 
+	# Screen shake
+	if shake_duration > 0:
+		shake_duration -= _delta
+		shake_time += _delta * 50
+		var shake_x = randf_range(-1, 1) * shake_intensity * (shake_duration / 0.15)
+		var shake_y = randf_range(-1, 1) * shake_intensity * (shake_duration / 0.15)
+		camera.h_offset = shake_x
+		camera.v_offset = shake_y
+	else:
+		camera.h_offset = 0
+		camera.v_offset = 0
+
 func _physics_process(_delta: float) -> void:
 	if dead:
 		return
@@ -142,6 +159,11 @@ func shoot():
 func shoot_animation_done():
 	can_shoot = true
 
+func trigger_shake(duration: float, intensity: float):
+	shake_duration = duration
+	shake_intensity = intensity
+	shake_time = 0.0
+
 func kick():
 	if !can_shoot:
 		return
@@ -165,6 +187,7 @@ func _on_kick_area_3d_body_entered(body):
 		var kick_origin = $KickArea3D.global_position
 		var direction = (body.global_position - kick_origin).normalized()
 		body.take_damage(25, kick_origin, direction)
+		trigger_shake(0.15, 0.3)
 
 # --- Damage + Death handling ---
 func take_damage(amount: int, hit_position: Vector3 = Vector3.ZERO, knockback_dir: Vector3 = Vector3.ZERO):
