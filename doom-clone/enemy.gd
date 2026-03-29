@@ -40,6 +40,8 @@ func _ready():
 	ambient_sound.play()
 	add_to_group("Enemy")
 	
+	animated_sprite_3d.frame = int(randf() * animated_sprite_3d.sprite_frames.get_frame_count("idle"))
+	
 	var nav_region = get_tree().get_first_node_in_group("NavigationRegion3D")
 	if not nav_region:
 		nav_region = get_node_or_null("/root/World/NavigationRegion3D")

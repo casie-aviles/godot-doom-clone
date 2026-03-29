@@ -15,7 +15,7 @@ func _ready():
     add_to_group("Enemy")
     
     # Randomize walk animation starting frame
-    animated_sprite_3d.frame = randi() % animated_sprite_3d.sprite_frames.get_frame_count("idle")
+    animated_sprite_3d.frame = int(randf() * animated_sprite_3d.sprite_frames.get_frame_count("idle"))
     
     # ... rest of setup
 ```
